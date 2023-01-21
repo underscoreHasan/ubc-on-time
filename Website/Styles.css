@@ -29,7 +29,15 @@ html{
     src: url("Fonts/whitneymedium.otf") format("opentype");
 }
 
+.btn{
+    background-color: #002145;
+}
 
+.btn:hover {
+    transform: scale(1.1);
+    background-color: #002145;
+
+}
 
 /*@font-face {
   font-family: 'Tangerine';
