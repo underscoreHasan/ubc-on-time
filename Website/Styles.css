@@ -1,12 +1,11 @@
-body{
-    /*background-color: #2A90CD;*/
-    
+html{
     /*BACKGROUND IMAGE SETTINGS*/
-    background-image: url("images/ubc\ colored\ map.jpg");
-    background-size: 1920px 1242px;
-    /*height: 1242px;
-    width: 1920px;*/
-    color:white;
+    background: url("images/ubc\ colored\ map.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  
 
 }
 
