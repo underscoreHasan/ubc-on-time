@@ -1,4 +1,4 @@
-html{
+body{
     /*BACKGROUND IMAGE SETTINGS*/
     background: url("images/ubc\ colored\ map.jpg");
     -webkit-background-size: cover;
@@ -7,7 +7,7 @@ html{
     background-size: cover;
     /*END OF BACKGROUND IMAGE*/
 
-    /* FOR THE TEXT*/
+    /*FOR THE TEXT*/
     color:white;
     text-align: center;
     
