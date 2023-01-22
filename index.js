@@ -8,60 +8,88 @@ const client = new Client({})
 
 
 
-/*
-//Buchanan+Bldg,+Vancouver,+BC+V6T+1Z1
-      //@49.2681556,-123.2568092,17z
-      //ICICS+Building,+Main+Mall,+Vancouver,+BC
-      //@49.2612707,-123.2511253,17z
-*/
-const API_KEY = process.env.API_KEY
-
-const getDistance = async () => {
-
-    let response = await client.placeAutocomplete({
-        params: {
-            input: "Buchanan",
-            location: {
-                lat: "49.2681556",
-                lng: "-123.2568092"
-            },
-            radius: 5000, //5km
-            key: API_KEY,
-        }
-    })
-
-    const place_id = response.data.predictions[0].place_id
-
-    // ChIJy0m_M7FyhlQRSzi-VB2LgzQ Buchanan
-    // ChIJx0vWJMpyhlQRYD0_Out-qAo icics
-    //ChIJi7hXLcpyhlQRTc5UsPU_qPM macleod
-    console.log(place_id)
-
-    response = await client.distancematrix({
-        params: {
-            key: API_KEY,
-            origins: [`place_id:${place_id}`],
-            destinations: [`place_id:ChIJx0vWJMpyhlQRYD0_Out-qAo`, `place_id:ChIJi7hXLcpyhlQRTc5UsPU_qPM`],
-            mode: TravelMode.walking,
-        }
-    })
-
-    console.log(response.data.rows[0].elements)
+function Journey (class1, buil1, class2, buil2, day, term){
+    this.class1 = class1;
+    this.buil1 = buil1;
+    this.class2 = class2;
+    this.buil2 = buil2;
+    this.day = day;
+    this.term = term;
+    this.time = "";
+    this.online = false;
 }
 
+let J1 = new Journey('CPSC 110 103', 'West Mall Swing Space', 'CHEM 111 112', 'Chemistry', 'Mon', 1);
+let J3 = new Journey('CPSC 110 103', 'West Mall Swing Space', 'CHEM 111 112', 'Chemistry', 'Wed', 1);
+let J4 = new Journey('DSCI 100 004', 'Hennings', 'CHEM 111 112', 'Chemistry', 'Thu', 1);
+let J5 = new Journey('CHEM 111 112', 'Chemistry', 'CHEM 111 L07', 'Chemistry', 'Thu', 1);
+let J6 = new Journey('CPSC 110 L19', 'Institute for Computing (ICICS/CS)', 'CHEM 111 112', 'Chemistry', 'Fri', 1);
 
-getDistance()
-// .then((res) => conso
-// console.log(process.env.API_KEY)
+let J7 = new Journey('CPSC 110 103', 'West Mall Swing Space', 'CHEM 111 112', 'Chemistry', 'Mon', 2);
+let J9 = new Journey('CPSC 110 103', 'West Mall Swing Space', 'CHEM 111 112', 'Chemistry', 'Wed', 2);
+let J10 = new Journey('DSCI 100 004', 'Hennings', 'CHEM 111 112', 'Chemistry', 'Thu', 2);
+let J11 = new Journey('CHEM 111 112', 'Chemistry', 'CHEM 111 L07', 'Chemistry', 'Thu', 2);
+let J12 = new Journey('CPSC 110 L19', 'Institute for Computing (ICICS/CS)', 'CHEM 111 112', 'Chemistry', 'Fri', 2);
 
-//receive list send list
-// get back list of place ids
-// save place ids
+var listofj = [J1,J3,J4,J5,J6,J7,J9,J10,J11,J12]
 
-//have file with data and data is map from place name to place_id
-//this would lower # of api calls
+const API_KEY = process.env.API_KEY
 
-// const url = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places&callback=initMap`;
 
-console.log("Hello World")
+const getDistance = async (journey) => {
+    try {
+        console.log(journey.buil1)
+        console.log(journey.buil2)
 
+        let response0 = await client.placeAutocomplete({
+            params: {
+                input: journey.buil1,
+                location: {
+                    lat: "49.2681556",
+                    lng: "-123.2568092"
+                },
+                radius: 5000, //5km
+                key: API_KEY,
+            }
+        })
+
+        let response1 = await client.placeAutocomplete({
+            params: {
+                input: journey.buil2,
+                location: {
+                    lat: "49.2681556",
+                    lng: "-123.2568092"
+                },
+                radius: 5000, //5km
+                key: API_KEY,
+            }
+        })
+
+        const place_id0 = response0.data.predictions[0].place_id
+        const place_id1 = response1.data.predictions[0].place_id
+
+        console.log(place_id0)
+        console.log(place_id1)
+
+        let response2 = await client.distancematrix({
+            params: {
+                key: API_KEY,
+                origins: [`place_id:${place_id0}`],
+                destinations: [`place_id:${place_id1}`],
+                mode: TravelMode.walking,
+            }
+        })
+
+        console.log(response2.data.rows[0].elements[0].duration.text);
+        journey.time = response2.data.rows[0].elements[0].duration.text;
+        console.log(journey.time);
+        console.log(listofj);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+for (let i = 0; i < listofj.length; i++) {
+    console.log(i);
+    getDistance(listofj[i]);
+}
