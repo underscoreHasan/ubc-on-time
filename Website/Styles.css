@@ -1,4 +1,4 @@
-html{
+body{
     /*BACKGROUND IMAGE SETTINGS*/
     background: url("images/ubc\ colored\ map.jpg");
     -webkit-background-size: cover;
@@ -7,7 +7,7 @@ html{
     background-size: cover;
     /*END OF BACKGROUND IMAGE*/
 
-    /* FOR THE TEXT*/
+    /*FOR THE TEXT*/
     color:white;
     text-align: center;
     
@@ -29,7 +29,15 @@ html{
     src: url("Fonts/whitneymedium.otf") format("opentype");
 }
 
+.btn{
+    background-color: #002145;
+}
 
+.btn:hover {
+    transform: scale(1.1);
+    background-color: #002145;
+
+}
 
 /*@font-face {
   font-family: 'Tangerine';
@@ -42,7 +50,7 @@ body {
   font-size: 48px;
 }*/
 
-.button {
+/* .button {
     display: inline-block;
     padding: 15px 25px;
     font-size: 24px;
