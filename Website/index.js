@@ -2,13 +2,18 @@ const item = document.getElementById("actual-btn");
 const formElem = document.getElementById("form")
 
 
-item.addEventListener("change", function(e) {
+item.addEventListener("change", async function(e) {
     e.preventDefault();
 
     console.log(e.target.files[0])
-
     
-    window.location="/Website/results.html"
+    const content = await e.target.files[0].text()
+    
+    response = await fetch("http://localhost:3000/process", {method:"POST", body:content})
+    
+    localStorage.setItem("journeys", await response.text())
+    
+    window.location="/results.html"
 })
 
 // const newElement = document.createElement("div")

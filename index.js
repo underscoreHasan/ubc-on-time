@@ -1,14 +1,18 @@
 // const axios = require("axios")
 require('dotenv').config()
 // const { google } = require('googleapis')
-const {Client, ReverseGeocodingLocationType, TravelMode} = require("@googlemaps/google-maps-services-js")
+const {Client, ReverseGeocodingLocationType, TravelMode} = require("@googlemaps/google-maps-services-js");
+const bodyParser = require('body-parser');
 
 const client = new Client({})
 
 var express = require('express');
 var app = express();
 
-app.get('/', async function(req, res){
+app.use(express.static('Website'))
+app.use(bodyParser.raw({type: "text/plain"}))
+
+app.post('/process', async function(req, res){
 
    function Journey (class1, buil1, class2, buil2, day, term, online){
     this.class1 = class1;
@@ -34,7 +38,7 @@ function Course (name, loc, until, start, end, day){
 var listofCourses = [];
 
 const ical = require('node-ical');
-const events = ical.sync.parseFile('ical(1).ics');
+const events = ical.sync.parseICS(req.body.toString());
 
 
 for (const event of Object.values(events)){
