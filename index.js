@@ -5,6 +5,9 @@ const {Client, ReverseGeocodingLocationType, TravelMode} = require("@googlemaps/
 
 const client = new Client({})
 
+
+
+
 /*
 //Buchanan+Bldg,+Vancouver,+BC+V6T+1Z1
       //@49.2681556,-123.2568092,17z
