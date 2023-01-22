@@ -5,10 +5,12 @@ const {Client, ReverseGeocodingLocationType, TravelMode} = require("@googlemaps/
 
 const client = new Client({})
 
+var express = require('express');
+var app = express();
 
+app.get('/', async function(req, res){
 
-
-function Journey (class1, buil1, class2, buil2, day, term, online){
+   function Journey (class1, buil1, class2, buil2, day, term, online){
     this.class1 = class1;
     this.buil1 = buil1;
     this.class2 = class2;
@@ -172,7 +174,7 @@ const getDistance = async (journey) => {
         console.log(response2.data.rows[0].elements[0].duration.text);
         journey.time = response2.data.rows[0].elements[0].duration.text;
         console.log(journey.time);
-        console.log(listofJourney);
+        //console.log(listofJourney);
     } catch (err) {
         console.log(err);
     }
@@ -180,5 +182,13 @@ const getDistance = async (journey) => {
 
 for (let i = 0; i < listofJourney.length; i++) {
     console.log(i);
-    getDistance(listofJourney[i]);
+    await getDistance(listofJourney[i]);
 }
+
+console.log(listofJourney);
+
+res.status(200).json({ data: listofJourney });
+
+});
+
+app.listen(3000);
