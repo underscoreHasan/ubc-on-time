@@ -1,4 +1,14 @@
-body{
+@font-face {
+  font-family: WhitneyMedium;
+  src: url("Fonts/whitneymedium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: WhitneyLight;
+  src: url("Fonts/whitneylight.otf") format("opentype");
+}
+
+body {
   /*BACKGROUND IMAGE SETTINGS*/
   background: url("images/ubc\ colored\ map.jpg");
   -webkit-background-size: cover;
@@ -8,13 +18,12 @@ body{
   /*END OF BACKGROUND IMAGE*/
 
   /*FOR THE TEXT*/
-  color:white;
+  color: white;
   text-align: center;
-  
 }
 
-.title{
-  height:auto;
+.title {
+  height: auto;
   max-width: 30%;
   align-items: center;
   display: block;
@@ -24,20 +33,21 @@ body{
   filter: drop-shadow(0px 0px 25px #000000);
 }
 
-@font-face {
-  font-family: WhitneyMedium;
-  src: url("Fonts/whitneymedium.otf") format("opentype");
-}
-
 .container {
   font-family: WhitneyMedium;
   display: flex;
-  align-items: center;
-  row-gap: 175px;
   flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
 }
 
-.btn{
+.cloud-icon {
+  width: 40%;
+  height: auto;
+}
+
+label {
   background-color: #002145;
   padding: 24px 100px;
   border-radius: 360px;
@@ -45,13 +55,17 @@ body{
   filter: drop-shadow(0px 0px 25px #000000);
 }
 
-.btn:hover {
+label:hover {
   transform: scale(1.1);
   background-color: #156c91;
 
 }
 
-.cloud-icon {
-  width: 40%;
-  height: auto;
+.description {
+  font-size: 23px;
+  font-family: whitneylight;
+}
+
+.text {
+  padding-bottom: 6vh;
 }
