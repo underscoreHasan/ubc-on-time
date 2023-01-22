@@ -19,6 +19,7 @@
   "dependencies": {
     "@googlemaps/google-maps-services-js": "^3.3.26",
     "dotenv": "^16.0.3",
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "node-ical": "^0.15.3"
   }
 }

@@ -8,30 +8,119 @@ const client = new Client({})
 
 
 
-function Journey (class1, buil1, class2, buil2, day, term){
+function Journey (class1, buil1, class2, buil2, day, term, online){
     this.class1 = class1;
     this.buil1 = buil1;
     this.class2 = class2;
     this.buil2 = buil2;
     this.day = day;
     this.term = term;
-    this.time = "";
-    this.online = false;
+    this.time = 0;
+    this.online = online;
 }
 
-let J1 = new Journey('CPSC 110 103', 'West Mall Swing Space', 'CHEM 111 112', 'Chemistry', 'Mon', 1);
-let J3 = new Journey('CPSC 110 103', 'West Mall Swing Space', 'CHEM 111 112', 'Chemistry', 'Wed', 1);
-let J4 = new Journey('DSCI 100 004', 'Hennings', 'CHEM 111 112', 'Chemistry', 'Thu', 1);
-let J5 = new Journey('CHEM 111 112', 'Chemistry', 'CHEM 111 L07', 'Chemistry', 'Thu', 1);
-let J6 = new Journey('CPSC 110 L19', 'Institute for Computing (ICICS/CS)', 'CHEM 111 112', 'Chemistry', 'Fri', 1);
+var listofJourney = [];
 
-let J7 = new Journey('CPSC 110 103', 'West Mall Swing Space', 'CHEM 111 112', 'Chemistry', 'Mon', 2);
-let J9 = new Journey('CPSC 110 103', 'West Mall Swing Space', 'CHEM 111 112', 'Chemistry', 'Wed', 2);
-let J10 = new Journey('DSCI 100 004', 'Hennings', 'CHEM 111 112', 'Chemistry', 'Thu', 2);
-let J11 = new Journey('CHEM 111 112', 'Chemistry', 'CHEM 111 L07', 'Chemistry', 'Thu', 2);
-let J12 = new Journey('CPSC 110 L19', 'Institute for Computing (ICICS/CS)', 'CHEM 111 112', 'Chemistry', 'Fri', 2);
+function Course (name, loc, until, start, end, day){
+    this.name = name;
+    this.location = loc;
+    this.until = until;
+    this.day = day;
+    this.startTime = start;
+    this.endTime = end;
+}
+var listofCourses = [];
 
-var listofj = [J1,J3,J4,J5,J6,J7,J9,J10,J11,J12]
+const ical = require('node-ical');
+const events = ical.sync.parseFile('ical(1).ics');
+
+
+for (const event of Object.values(events)){
+    var loc = String(event.location).substring(0, String(event.location).indexOf(","));
+    var rrule = String(event.rrule);
+    var endSplitted = String(rrule.split(";")[3]);
+    var endMonth = endSplitted.charAt(10);
+    var start = String(event.start);
+    var day = start.split(" ")[0];
+    var end = String(event.end);
+    var startTime = start.split(" ")[4];
+    var endTime = end.split(" ")[4];
+    var name = String(event.summary);
+    let course = new Course(name, loc, endMonth, startTime, endTime, day);
+    listofCourses.push(course);
+}
+
+
+var length = listofCourses.length;
+listofCourses = listofCourses.slice(1,length-1);
+
+var mapDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Mon", "Tue", "Wed", "Thu", "Fri"];
+
+function Day (){
+    this.courses = [];
+    this.name = "";
+    this.term = -1;
+}
+
+var week = [];
+
+for (let i = 0; i<10; i++){
+    var day = new Day();
+    var date = mapDays[i];
+    day.name = date;
+    var t = -1;
+    if (i < 5){
+            day.term = 1;
+            t = 1;
+    }
+    else{
+            day.term = 0;
+            t = 0;
+    }
+
+    for (let course of listofCourses){
+            if (course.day === date && course.until == t){
+                    day.courses.push(course);
+            }
+    }
+    week.push(day);
+}
+
+for (let day of week){
+    var sortedCourses = day.courses.sort(
+            (c1,c2) =>
+            (c1.startTime < c2.startTime) ? -1 : (c1.startTime > c2.startTime) ? 1 : 0);
+}
+
+
+
+for (let day of week){
+    var courses = day.courses;
+    var length = courses.length;
+    for (let i = 0; i < length -1; i++){
+            var c1 = courses[i];
+            var c2 = courses[i+1];
+            var class1 = c1.name;
+            var buil1 = c1.location;
+            var class2 = c2.name;
+            var buil2 = c2.location;
+            var date = c1.day;
+
+            var term = -1;
+            if (c1.until == 1){
+                    term = 1;
+            }
+            else {
+                    term = 2;
+            }
+            var online = false;
+            if (buil1 === "" || buil2 === ""){
+                    online = true;
+            }
+            let journey = new Journey(class1, buil1, class2, buil2, date, term, online);
+            listofJourney.push(journey);
+    }
+}
 
 const API_KEY = process.env.API_KEY
 
@@ -83,13 +172,13 @@ const getDistance = async (journey) => {
         console.log(response2.data.rows[0].elements[0].duration.text);
         journey.time = response2.data.rows[0].elements[0].duration.text;
         console.log(journey.time);
-        console.log(listofj);
+        console.log(listofJourney);
     } catch (err) {
         console.log(err);
     }
 }
 
-for (let i = 0; i < listofj.length; i++) {
+for (let i = 0; i < listofJourney.length; i++) {
     console.log(i);
-    getDistance(listofj[i]);
+    getDistance(listofJourney[i]);
 }
