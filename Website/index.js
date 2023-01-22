@@ -9,7 +9,7 @@ item.addEventListener("change", async function(e) {
     
     const content = await e.target.files[0].text()
     
-    response = await fetch("http://localhost:3000/process", {method:"POST", body:content})
+    response = await fetch("/process", {method:"POST", body:content})
     
     localStorage.setItem("journeys", await response.text())
     
