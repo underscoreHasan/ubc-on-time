@@ -25,8 +25,16 @@ body{
 }
 
 @font-face {
-  font-family: GraublauWeb;
+  font-family: WhitneyMedium;
   src: url("Fonts/whitneymedium.otf") format("opentype");
+}
+
+.container {
+  font-family: WhitneyMedium;
+  display: flex;
+  align-items: center;
+  row-gap: 175px;
+  flex-direction: column;
 }
 
 .btn{
@@ -47,61 +55,3 @@ body{
   width: 40%;
   height: auto;
 }
-
-/*@font-face {
-font-family: 'Tangerine';
-font-style: normal;
-font-weight: normal;
-src: local('Tangerine'), url('http://example.com/tangerine.ttf') format('truetype');
-}
-body {
-font-family: 'Tangerine', serif;
-font-size: 48px;
-}*/
-
-/* .button {
-  display: inline-block;
-  padding: 15px 25px;
-  font-size: 24px;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  outline: none;
-  color: #fff;
-  background-color: #002145;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 9px #999;
-}
-
-.button:hover {
-  background-color: #002145;
-  transform: scale(1.1);
-  
-}
-
-/* .button:active {
-  background-color: #002145;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
-} */
-
-/* .joke-text{
-  color:black;
-  padding-bottom: 20px;
-
-}
-
-.joke-btn{
-  border-radius: 12px;
-  background-color: #3c4ba5;
-  color: white;
-  padding: 20px 60px 20px 60px;
-  font-size: 20px;
-  border: none;
-  font-family: "Coming Soon";
-}
-
-.joke-btn:hover{
-  transform: scale(1.1);
-} */
