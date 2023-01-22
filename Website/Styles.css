@@ -31,6 +31,9 @@ body{
 
 .btn{
     background-color: #002145;
+    padding: 36px 90px;
+    border-radius: 60px;
+    font-size: 30px;
 }
 
 .btn:hover {
