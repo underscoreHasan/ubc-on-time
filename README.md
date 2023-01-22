@@ -6,4 +6,4 @@ The website allows you to upload an .ics file containing your schedule (download
 
 For future functionality, we hope to build an interface to allow you to input 2 of your planned classes at a time, to help you when building a worklist. We also wish to include an accessible option which calculates the wheelchair accessible routes between classes.
 
-Project is done with HTML/CSS/JavaScript, Node and Express.
+Project was done with HTML/CSS/JavaScript, Node and Express.
