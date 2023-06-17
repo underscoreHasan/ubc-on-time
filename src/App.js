@@ -1,7 +1,6 @@
 import './App.css';
 import logo from './assets/UBCOnTime Logo.png';
-
-console.log(logo)
+import { useState } from 'react';
 
 function App() {
   return (
@@ -15,13 +14,23 @@ function App() {
 
 function HeaderImage() {
   return (
-    <img class="logo" src={logo} alt="UBCOnTime Logo" width="1387" height="220" />
+    <img className="logo" src={logo} alt="UBCOnTime Logo" width="1387" height="220" />
   )
 }
 
 function UploadButton() {
+  const [file, setFile] = useState();
+
+  const handleSubmit = (e) => {
+    console.log(e.target.files[0].name);
+    setFile(e.target.files[0])
+  }
+
   return (
-    <button>cloud icon</button>
+    <input
+      type="file"
+      onChange={handleSubmit}
+    />
   )
 }
 
