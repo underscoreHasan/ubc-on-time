@@ -19,12 +19,19 @@ function HeaderImage() {
 }
 
 function UploadButton() {
-  const [file, setFile] = useState();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const handleSubmit = (e) => {
-    console.log(e.target.files[0].name);
-    setFile(e.target.files[0])
-  }
+    let file = e.target.files[0];
+
+    console.log(file.name);
+
+    const content = await file.text();
+    
+    const response = await fetch("http://localhost:9000/process", {method: "POST", body:content});
+
+    localStorage.setItem("journeys", await response.text());
+  };
 
   return (
     <input
