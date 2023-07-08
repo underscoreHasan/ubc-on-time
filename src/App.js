@@ -19,6 +19,8 @@ function HeaderImage() {
 }
 
 function UploadButton() {
+  const [journeys, setJourneys] = useState([]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -30,14 +32,33 @@ function UploadButton() {
     
     const response = await fetch("http://localhost:9000/process", {method: "POST", body:content});
 
-    localStorage.setItem("journeys", await response.text());
+    setJourneys(JSON.parse(await response.text()).data);
   };
 
   return (
+    <>
     <input
       type="file"
       onChange={handleSubmit}
     />
+    <div>
+      {journeys.map((journey) => (
+        <div>
+          <text>
+            {journey.class1} to {journey.class2}
+            <br />
+            {journey.day}
+            <br />
+            Term: {journey.term}
+            <br />
+            Walk Time: {journey.time}
+            <br />
+            <br />
+          </text>
+        </div>
+      ))}
+    </div>
+    </>
   )
 }
 
