@@ -42,16 +42,18 @@ function UploadButton() {
       onChange={handleSubmit}
     />
     <div>
-      {journeys.map((journey) => (
+      {journeys.map((j) => (
         <div>
           <text>
-            {journey.class1} to {journey.class2}
+            {j.class1} to {j.class2}
             <br />
-            {journey.day}
+            {j.buil1} to {j.buil2}
             <br />
-            Term: {journey.term}
+            {j.day}
             <br />
-            Walk Time: {journey.time}
+            Term: {j.term}
+            <br />
+            Walk Time: {j.time}
             <br />
             <br />
           </text>
