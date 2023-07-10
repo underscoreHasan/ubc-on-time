@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 function App() {
   return (
-    <div>
+    <div className='main'>
       <HeaderImage />
       <UploadButton />
       <Information />
