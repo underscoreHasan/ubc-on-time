@@ -9,10 +9,21 @@
 }
 
 .main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   margin: 0px;
   height: 100vh;
   text-align: center;
   background-image: url(~assets/images/ubc\ colored\ map.jpg);
+}
+
+.headerImage {
+  width: 30vw;
+  object-fit: contain;
+  opacity: 100%;
+  filter: drop-shadow(0px 4px 25px #000000);
 }
 
 .information {
