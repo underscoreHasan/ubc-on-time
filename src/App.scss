@@ -1,6 +1,28 @@
+@font-face {
+  font-family: WhitneyMedium;
+  src: url("assets/fonts/whitneymedium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: WhitneyLight;
+  src: url("assets/fonts/whitneylight.otf") format("opentype");
+}
+
 .main {
+  margin: 0px;
+  height: 100vh;
   text-align: center;
-  background-image: url(assets/ubc\ colored\ map.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-image: url(~assets/images/ubc\ colored\ map.jpg);
+}
+
+.information {
+  color: whitesmoke;
+
+  h2 {
+    font-family: WhitneyMedium;
+  }
+
+  p {
+    font-family: WhitneyMedium;
+  }
 }

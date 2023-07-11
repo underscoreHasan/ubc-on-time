@@ -1,5 +1,5 @@
-import './App.css';
-import logo from './assets/UBCOnTime Logo.png';
+import './App.scss';
+import logo from './assets/images/UBCOnTime Logo.png';
 import { useState } from 'react';
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
 
 function HeaderImage() {
   return (
-    <img className="logo" src={logo} alt="UBCOnTime Logo" width="1387" height="220" />
+    <img className="headerImage" src={logo} alt="UBCOnTime Logo" width="1387" height="220" />
   )
 }
 
@@ -66,7 +66,7 @@ function UploadButton() {
 
 function Information() {
   return (
-    <div>
+    <div className='information'>
       <h2>Find your Timetable on the SSC, then click 'Download your schedule' and upload it here.</h2>
       <p>Our app makes sure that don't have to sprint between your UBC classes.</p>
     </div>
