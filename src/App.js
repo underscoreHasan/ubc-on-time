@@ -1,5 +1,6 @@
 import './App.scss';
 import logo from './assets/images/UBCOnTime Logo.png';
+import cloudIcon from './assets/images/cloud.svg';
 import { useState, useRef } from 'react';
 import Button from 'react-bootstrap/Button';
 
@@ -43,8 +44,8 @@ function UploadButton() {
 
   return (
     <>
-      <Button onClick={handleClick}>
-        Upload a file
+      <Button onClick={handleClick} variant="primary" className='uploadButton'>
+      <img className="cloudIcon" src={cloudIcon} alt='cloud upload icon'/>
       </Button>
 
       <input
