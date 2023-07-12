@@ -1,6 +1,7 @@
 import './App.scss';
 import logo from './assets/images/UBCOnTime Logo.png';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import Button from 'react-bootstrap/Button';
 
 function App() {
   return (
@@ -20,6 +21,11 @@ function HeaderImage() {
 
 function UploadButton() {
   const [journeys, setJourneys] = useState([]);
+  const hiddenFileInput = useRef(null);
+
+  const handleClick = e => {
+    hiddenFileInput.current.click();
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,37 +35,44 @@ function UploadButton() {
     console.log(file.name);
 
     const content = await file.text();
-    
-    const response = await fetch("http://localhost:9000/process", {method: "POST", body:content});
+
+    const response = await fetch("http://localhost:9000/process", { method: "POST", body: content });
 
     setJourneys(JSON.parse(await response.text()).data);
   };
 
   return (
     <>
-    <input
-      type="file"
-      onChange={handleSubmit}
-    />
-    <div>
-      {journeys.map((j) => (
-        <div>
-          <text>
-            {j.class1} to {j.class2}
-            <br />
-            {j.buil1} to {j.buil2}
-            <br />
-            {j.day}
-            <br />
-            Term: {j.term}
-            <br />
-            Walk Time: {j.time}
-            <br />
-            <br />
-          </text>
-        </div>
-      ))}
-    </div>
+      <Button onClick={handleClick}>
+        Upload a file
+      </Button>
+
+      <input
+        type="file"
+        style={{ display: 'none' }}
+        onChange={handleSubmit}
+        ref={hiddenFileInput}
+      />
+
+      <div>
+        {journeys.map((j) => (
+          <div>
+            <text>
+              {j.class1} to {j.class2}
+              <br />
+              {j.buil1} to {j.buil2}
+              <br />
+              {j.day}
+              <br />
+              Term: {j.term}
+              <br />
+              Walk Time: {j.time}
+              <br />
+              <br />
+            </text>
+          </div>
+        ))}
+      </div>
     </>
   )
 }
