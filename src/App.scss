@@ -42,6 +42,35 @@
   filter: drop-shadow(0px 0px 25px #303030);
 }
 
+.journeys {
+  color: red;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  outline: 5px dotted green;
+  .Sun {
+    outline: 5px dotted purple;
+  }
+  .Mon {
+    outline: 5px dotted green;
+  }
+  .Tue {
+    outline: 5px dotted red;
+  }
+  .Wed {
+    outline: 5px dotted blue;
+  }
+  .Thu {
+    outline: 5px dotted yellow;
+  }
+  .Fri {
+    outline: 5px dotted orange;
+  }
+  .Sat {
+    outline: 5px dotted brown;
+  }
+}
+
 .information {
   color: whitesmoke;
   text-shadow: 2px 2px 10px #000000;

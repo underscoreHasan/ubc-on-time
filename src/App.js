@@ -55,10 +55,9 @@ function UploadButton() {
         ref={hiddenFileInput}
       />
 
-      <div>
+      <div className="journeys">
         {journeys.map((j) => (
-          <div>
-            <text>
+          <div className={j.day}>
               {j.class1} to {j.class2}
               <br />
               {j.buil1} to {j.buil2}
@@ -70,7 +69,6 @@ function UploadButton() {
               Walk Time: {j.time}
               <br />
               <br />
-            </text>
           </div>
         ))}
       </div>
