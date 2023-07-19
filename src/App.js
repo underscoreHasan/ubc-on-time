@@ -11,7 +11,7 @@ function App() {
     <div className='main'>
       <HeaderImage />
       <UploadButton onResponse={(data) => setJourneys(data)} />
-      <Schedule journeys={journeys}/>
+      <Schedule journeys={journeys} />
       <Information />
     </div>
   );
@@ -58,22 +58,49 @@ function UploadButton({ onResponse }) {
   );
 }
 
-function Schedule({ journeys }) {  
+function Schedule({ journeys }) {
+  const timetable = [[], [], [], [], [], [], []];
+
+  function bucketJourneys(journeys) {
+    journeys.map((j) => (
+      timetable[dayToIndex(j.day)].push(j)
+    ));
+
+    return timetable;
+  }
+
+  function dayToIndex(d) {
+    switch (d) {
+      case "Sun": return 0;
+      case "Mon": return 1;
+      case "Tue": return 2;
+      case "Wed": return 3;
+      case "Thu": return 4;
+      case "Fri": return 5;
+      case "Sat": return 6;
+      default: break;
+    }
+  }
+
   return (
-    <div className="journeys">
-      {journeys.map((j) => (
-        <div className={j.day}>
-          {j.class1} to {j.class2}
-          <br />
-          {j.buil1} to {j.buil2}
-          <br />
-          {j.day}
-          <br />
-          Term: {j.term}
-          <br />
-          Walk Time: {j.time}
-          <br />
-          <br />
+    <div className="timeTable">
+      {bucketJourneys(journeys).map((d) => (
+        <div className={d}>
+          {d.map((j) => (
+            <div className={j.day}>
+              {j.class1} to {j.class2}
+              <br />
+              {j.buil1} to {j.buil2}
+              <br />
+              {j.day}
+              <br />
+              Term: {j.term}
+              <br />
+              Walk Time: {j.time}
+              <br />
+              <br />
+            </div>
+          ))}
         </div>
       ))}
     </div>
