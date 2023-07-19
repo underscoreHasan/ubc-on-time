@@ -84,8 +84,8 @@ function Schedule({ journeys }) {
 
   return (
     <div className="timeTable">
-      {bucketJourneys(journeys).map((d) => (
-        <div className={d}>
+      {bucketJourneys(journeys).map((d, index) => (
+        <div className={"day"}>
           {d.map((j) => (
             <div className={j.day}>
               {j.class1} to {j.class2}
