@@ -1,0 +1,83 @@
+@import '~bootstrap/scss/bootstrap';
+
+@font-face {
+  font-family: WhitneyMedium;
+  src: url("assets/fonts/whitneymedium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: WhitneyLight;
+  src: url("assets/fonts/whitneylight.otf") format("opentype");
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0px;
+  height: 100vh;
+  text-align: center;
+  background-image: url(~assets/images/ubc\ colored\ map.jpg);
+}
+
+.headerImage {
+  width: 30vw;
+  object-fit: contain;
+  opacity: 100%;
+  filter: drop-shadow(0px 4px 25px #000000);
+}
+
+.uploadButton {
+  background-color: #002145;
+  border-radius: 360px;
+  padding: 15px 120px;
+  border: none;
+  filter: drop-shadow(0px 0px 25px #000000);
+}
+
+.uploadButton:hover {
+  transform: scale(1.03);
+  filter: drop-shadow(0px 0px 25px #303030);
+  transition: 0.3s;
+}
+
+.timeTable {
+  color: black;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  outline: 2px solid green;
+  column-gap: 10px;
+
+  .day {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    row-gap:15px;
+
+    .journeyCard {
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 5px;
+    }
+    
+    .journeyCard:hover {
+      transform: scale(1.03);
+      transition: 0.3s;
+    }
+  }
+}
+
+.information {
+  color: whitesmoke;
+  text-shadow: 2px 2px 10px #000000;
+
+  h2 {
+    font-family: WhitneyMedium;
+  }
+
+  p {
+    font-family: WhitneyLight;
+  }
+}
