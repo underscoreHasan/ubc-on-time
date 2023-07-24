@@ -38,39 +38,34 @@
 
 .uploadButton:hover {
   transform: scale(1.03);
-  background-color: #003064;
   filter: drop-shadow(0px 0px 25px #303030);
+  transition: 0.3s;
 }
 
 .timeTable {
-  color: red;
+  color: black;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   outline: 2px solid green;
+  column-gap: 10px;
+
   .day {
+    display: flex;
+    flex-direction: column;
     flex: 1;
-  }
-  .Sun {
-    outline: 5px dotted purple;
-  }
-  .Mon {
-    outline: 5px dotted green;
-  }
-  .Tue {
-    outline: 5px dotted red;
-  }
-  .Wed {
-    outline: 5px dotted blue;
-  }
-  .Thu {
-    outline: 5px dotted yellow;
-  }
-  .Fri {
-    outline: 5px dotted orange;
-  }
-  .Sat {
-    outline: 5px dotted brown;
+    row-gap:15px;
+
+    .journeyCard {
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 5px;
+    }
+    
+    .journeyCard:hover {
+      transform: scale(1.03);
+      transition: 0.3s;
+    }
   }
 }
 
