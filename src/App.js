@@ -10,8 +10,7 @@ function App() {
   return (
     <div className='main'>
       <HeaderImage />
-      <UploadButton onResponse={(data) => setJourneys(data)} />
-      <Schedule journeys={journeys} />
+      <UploadButton onResponse={(data) => setJourneys(data)} journeys={journeys} />
       <Information />
     </div>
   );
@@ -23,8 +22,9 @@ function HeaderImage() {
   );
 }
 
-function UploadButton({ onResponse }) {
+function UploadButton({ onResponse, journeys }) {
   const hiddenFileInput = useRef(null);
+  const [foundResponse, setFoundResponse] = useState(false);
 
   const handleClick = e => {
     hiddenFileInput.current.click();
@@ -34,26 +34,31 @@ function UploadButton({ onResponse }) {
     e.preventDefault();
 
     let file = e.target.files[0];
-
     const content = await file.text();
-
     const response = await fetch("http://localhost:9000/process", { method: "POST", body: content });
 
     onResponse(JSON.parse(await response.text()).data);
+
+    setFoundResponse(true);
   };
 
   return (
     <>
-      <Button onClick={handleClick} variant="primary" className='uploadButton'>
-        <img className="cloudIcon" src={cloudIcon} alt='cloud upload icon' />
-      </Button>
+      {(!foundResponse) ?
+        <>
+          <Button onClick={handleClick} variant="primary" className='uploadButton'>
+            <img className="cloudIcon" src={cloudIcon} alt='cloud upload icon' />
+          </Button>
 
-      <input
-        type="file"
-        style={{ display: 'none' }}
-        onChange={handleSubmit}
-        ref={hiddenFileInput}
-      />
+          <input
+            type="file"
+            style={{ display: 'none' }}
+            onChange={handleSubmit}
+            ref={hiddenFileInput}
+          />
+        </>
+      : <Schedule journeys={journeys}/>
+    }
     </>
   );
 }
