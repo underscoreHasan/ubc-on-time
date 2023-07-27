@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { Client, ReverseGeocodingLocationType, TravelMode } = require("@googlemaps/google-maps-services-js");
+const { Client, TravelMode } = require("@googlemaps/google-maps-services-js");
 const bodyParser = require('body-parser');
 
 const client = new Client({})
@@ -135,9 +135,6 @@ router.post("/", async function (req, res) {
 
     const getDistance = async (journey) => {
         try {
-            console.log(journey.buil1)
-            console.log(journey.buil2)
-
             let response0 = await client.placeAutocomplete({
                 params: {
                     input: journey.buil1,
@@ -165,9 +162,6 @@ router.post("/", async function (req, res) {
             const place_id0 = response0.data.predictions[0].place_id
             const place_id1 = response1.data.predictions[0].place_id
 
-            console.log(place_id0)
-            console.log(place_id1)
-
             let response2 = await client.distancematrix({
                 params: {
                     key: API_KEY,
@@ -177,21 +171,15 @@ router.post("/", async function (req, res) {
                 }
             })
 
-            console.log(response2.data.rows[0].elements[0].duration.text);
             journey.time = response2.data.rows[0].elements[0].duration.text;
-            console.log(journey.time);
-            //console.log(listofJourney);
         } catch (err) {
             console.log(err);
         }
     }
 
     for (let i = 0; i < listofJourney.length; i++) {
-        console.log(i);
         await getDistance(listofJourney[i]);
     }
-
-    console.log(listofJourney);
 
     res.status(200).json({ data: listofJourney });
 

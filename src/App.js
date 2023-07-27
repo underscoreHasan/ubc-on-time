@@ -57,21 +57,26 @@ function UploadButton({ onResponse, journeys }) {
             ref={hiddenFileInput}
           />
         </>
-      : <Schedule journeys={journeys}/>
-    }
+        : <Schedule journeys={journeys} />
+      }
     </>
   );
 }
 
 function Schedule({ journeys }) {
-  const timetable = [[], [], [], [], [], [], []];
+  const t1Week = [[], [], [], [], [], [], []];
+  const t2Week = [[], [], [], [], [], [], []];
+
+  bucketJourneys(journeys);
 
   function bucketJourneys(journeys) {
-    journeys.map((j) => (
-      timetable[dayToIndex(j.day)].push(j)
-    ));
-
-    return timetable;
+    journeys.map((j) => {
+      if (j.term == 1) {
+        t1Week[dayToIndex(j.day)].push(j);
+      } else {
+        t2Week[dayToIndex(j.day)].push(j);
+      }
+    })
   }
 
   function dayToIndex(d) {
@@ -88,27 +93,50 @@ function Schedule({ journeys }) {
   }
 
   return (
-    <div className="timeTable">
-      {bucketJourneys(journeys).map((d, index) => (
-        <div className="day">
-          {d.map((j) => (
-            <div className="journeyCard">
-              {j.class1} to {j.class2}
-              <br />
-              {j.buil1} to {j.buil2}
-              <br />
-              {j.day}
-              <br />
-              Term: {j.term}
-              <br />
-              Walk Time: {j.time}
-              <br />
-              <br />
-            </div>
-          ))}
-        </div>
-      ))}
-    </div>
+    <>
+      <div className="timeTable">
+        {t1Week.map((day) => (
+          <div className="day">
+            {day.map((j) => (
+              <div className="journeyCard">
+                {j.class1} to {j.class2}
+                <br />
+                {j.buil1} to {j.buil2}
+                <br />
+                {j.day}
+                <br />
+                Term: {j.term}
+                <br />
+                Walk Time: {j.time}
+                <br />
+                <br />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      <div className="timeTable">
+        {t2Week.map((day) => (
+          <div className="day">
+            {day.map((j) => (
+              <div className="journeyCard">
+                {j.class1} to {j.class2}
+                <br />
+                {j.buil1} to {j.buil2}
+                <br />
+                {j.day}
+                <br />
+                Term: {j.term}
+                <br />
+                Walk Time: {j.time}
+                <br />
+                <br />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
 
