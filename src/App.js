@@ -23,7 +23,6 @@ function HeaderImage() {
 }
 
 function UploadButton({ onResponse, journeys }) {
-  const hiddenFileInput = useRef(null);
   const [foundResponse, setFoundResponse] = useState(false);
 
   const handleClick = e => {
@@ -49,8 +48,11 @@ function UploadButton({ onResponse, journeys }) {
 function Schedule({ journeys }) {
   const t1Week = [[], [], [], [], [], [], []];
   const t2Week = [[], [], [], [], [], [], []];
+  const [term1Active, setActiveTerm] = useState(true);
 
   bucketJourneys(journeys);
+
+  const toggleWeek = () =>{ (term1Active == true) ? setActiveTerm(false) : setActiveTerm(true) }
 
   function bucketJourneys(journeys) {
     journeys.map((j) => {
@@ -77,29 +79,11 @@ function Schedule({ journeys }) {
 
   return (
     <>
+      <Button onClick={toggleWeek} variant="primary">
+        Switch to Term {(term1Active == true) ? "2" : "1"}
+      </Button>
       <div className="timeTable">
-        {t1Week.map((day) => (
-          <div className="day">
-            {day.map((j) => (
-              <div className="journeyCard">
-                {j.class1} to {j.class2}
-                <br />
-                {j.buil1} to {j.buil2}
-                <br />
-                {j.day}
-                <br />
-                Term: {j.term}
-                <br />
-                Walk Time: {j.time}
-                <br />
-                <br />
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-      <div className="timeTable">
-        {t2Week.map((day) => (
+        {((term1Active == true) ? t1Week : t2Week).map((day) => (
           <div className="day">
             {day.map((j) => (
               <div className="journeyCard">
