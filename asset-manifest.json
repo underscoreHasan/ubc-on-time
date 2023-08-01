@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/ubc-on-time/static/css/main.20c11d2d.css",
-    "main.js": "/ubc-on-time/static/js/main.c1a1c39e.js",
+    "main.js": "/ubc-on-time/static/js/main.80941c54.js",
     "static/js/787.53ebc33c.chunk.js": "/ubc-on-time/static/js/787.53ebc33c.chunk.js",
     "static/media/ubc colored map.jpg": "/ubc-on-time/static/media/ubc colored map.9fd3dfe04b442d944497.jpg",
     "static/media/whitneymedium.otf": "/ubc-on-time/static/media/whitneymedium.cbc95f17e2ae0622f573.otf",
@@ -10,11 +10,11 @@
     "static/media/cloud.svg": "/ubc-on-time/static/media/cloud.d1f7ecc79e53e20b4ffbad1ccf3bcdc3.svg",
     "index.html": "/ubc-on-time/index.html",
     "main.20c11d2d.css.map": "/ubc-on-time/static/css/main.20c11d2d.css.map",
-    "main.c1a1c39e.js.map": "/ubc-on-time/static/js/main.c1a1c39e.js.map",
+    "main.80941c54.js.map": "/ubc-on-time/static/js/main.80941c54.js.map",
     "787.53ebc33c.chunk.js.map": "/ubc-on-time/static/js/787.53ebc33c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.20c11d2d.css",
-    "static/js/main.c1a1c39e.js"
+    "static/js/main.80941c54.js"
   ]
 }
