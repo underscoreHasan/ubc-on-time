@@ -6,28 +6,35 @@ import Button from 'react-bootstrap/Button';
 
 function App() {
   const [journeys, setJourneys] = useState([]);
+  const [foundResponse, setFoundResponse] = useState(false);
 
   return (
     <div className='main'>
-      <HeaderImage />
-      <UploadButton onResponse={(data) => setJourneys(data)} journeys={journeys} />
-      <Information />
+      <HeaderImage foundResponse={foundResponse} />
+      <Interface
+        onResponse={(data) => {
+          setJourneys(data);
+          setFoundResponse(true);
+        }}
+        journeys={journeys}
+        foundResponse={foundResponse} />
+      <Information foundResponse={foundResponse} />
     </div>
   );
 }
 
-function HeaderImage() {
-  return (
-    <img className="headerImage" src={logo} alt="UBCOnTime Logo" width="1387" height="220" />
-  );
+function HeaderImage({ foundResponse }) {
+  if (!foundResponse) {
+    return (
+      <img className="headerImage" src={logo} alt="UBCOnTime Logo" width="1387" height="220" />
+    );
+  }
 }
 
-function UploadButton({ onResponse, journeys }) {
-  const [foundResponse, setFoundResponse] = useState(false);
+function Interface({ onResponse, journeys, foundResponse }) {
 
   const handleClick = e => {
     onResponse(staticResponse);
-    setFoundResponse(true);
   };
 
   return (
@@ -52,11 +59,11 @@ function Schedule({ journeys }) {
 
   bucketJourneys(journeys);
 
-  const toggleWeek = () =>{ (term1Active == true) ? setActiveTerm(false) : setActiveTerm(true) }
+  const toggleWeek = () => { (term1Active === true) ? setActiveTerm(false) : setActiveTerm(true) }
 
   function bucketJourneys(journeys) {
     journeys.map((j) => {
-      if (j.term == 1) {
+      if (j.term === 1) {
         t1Week[dayToIndex(j.day)].push(j);
       } else {
         t2Week[dayToIndex(j.day)].push(j);
@@ -80,10 +87,10 @@ function Schedule({ journeys }) {
   return (
     <>
       <Button onClick={toggleWeek} variant="primary">
-        Switch to Term {(term1Active == true) ? "2" : "1"}
+        Switch to Term {(term1Active === true) ? "2" : "1"}
       </Button>
       <div className="timeTable">
-        {((term1Active == true) ? t1Week : t2Week).map((day) => (
+        {((term1Active === true) ? t1Week : t2Week).map((day) => (
           <div className="day">
             {day.map((j) => (
               <div className="journeyCard">
@@ -107,19 +114,22 @@ function Schedule({ journeys }) {
   );
 }
 
-function Information() {
-  return (
-    <div className='information'>
-      <h2>Find your Timetable on the SSC, then click 'Download your schedule' and upload it here.</h2>
-      <p>Our app makes sure that don't have to sprint between your UBC classes.</p>
-      <p className='disclaimer'>For now, this version of the webapp is 'dumb' (makes no API calls/server requests) and is a demo for Github Pages.</p>
-      <p className='disclaimer'>Clicking the upload button will simply serve static data from a preselected .ics file.</p>
-    </div>
-  );
+function Information({foundResponse}) {
+  if (!foundResponse) {
+    return (
+      <div className='information'>
+        <h2>Find your Timetable on the SSC, then click 'Download your schedule' and upload it here.</h2>
+        <p>Our app makes sure that don't have to sprint between your UBC classes.</p>
+        <p className='disclaimer'>For now, this version of the webapp is 'dumb' (makes no API calls/server requests) and is a demo for Github Pages.</p>
+        <p className='disclaimer'>Clicking the upload button would normally allow you to choose a UBC .ics file to upload.</p>
+      </div>
+    );
+  }
 }
 
 export default App;
 
+//constant to hold emulated API response for demo purposes.
 const staticResponse = [
   {
     "class1": "MATH 221 104",
