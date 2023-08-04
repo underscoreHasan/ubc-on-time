@@ -1,30 +1,38 @@
 import './App.scss';
 import logo from './assets/images/UBCOnTime Logo.png';
 import cloudIcon from './assets/images/cloud.svg';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 
 function App() {
   const [journeys, setJourneys] = useState([]);
+  const [foundResponse, setFoundResponse] = useState(false);
 
   return (
     <div className='main'>
-      <HeaderImage />
-      <UploadButton onResponse={(data) => setJourneys(data)} journeys={journeys} />
-      <Information />
+      <HeaderImage foundResponse={foundResponse} />
+      <Interface
+        onResponse={(data) => {
+          setJourneys(data);
+          setFoundResponse(true);
+        }}
+        journeys={journeys}
+        foundResponse={foundResponse} />
+      <Information foundResponse={foundResponse} />
     </div>
   );
 }
 
-function HeaderImage() {
-  return (
-    <img className="headerImage" src={logo} alt="UBCOnTime Logo" width="1387" height="220" />
-  );
+function HeaderImage({ foundResponse }) {
+  if (!foundResponse) {
+    return (
+      <img className="headerImage" src={logo} alt="UBCOnTime Logo" width="1387" height="220" />
+    );
+  }
 }
 
-function UploadButton({ onResponse, journeys }) {
+function Interface({ onResponse, journeys, foundResponse }) {
   const hiddenFileInput = useRef(null);
-  const [foundResponse, setFoundResponse] = useState(false);
 
   const handleClick = e => {
     hiddenFileInput.current.click();
@@ -38,8 +46,6 @@ function UploadButton({ onResponse, journeys }) {
     const response = await fetch("http://localhost:9000/process", { method: "POST", body: content });
 
     onResponse(JSON.parse(await response.text()).data);
-
-    setFoundResponse(true);
   };
 
   return (
@@ -66,12 +72,16 @@ function UploadButton({ onResponse, journeys }) {
 function Schedule({ journeys }) {
   const t1Week = [[], [], [], [], [], [], []];
   const t2Week = [[], [], [], [], [], [], []];
+  const [term1Active, setActiveTerm] = useState(true);
+  const [debug, setDebug] = useState();
 
-  bucketJourneys(journeys);
+  bucketJourneys(journeys)
+
+  const toggleWeek = () => { (term1Active === true) ? setActiveTerm(false) : setActiveTerm(true) }
 
   function bucketJourneys(journeys) {
     journeys.map((j) => {
-      if (j.term == 1) {
+      if (j.term === 1) {
         t1Week[dayToIndex(j.day)].push(j);
       } else {
         t2Week[dayToIndex(j.day)].push(j);
@@ -94,29 +104,11 @@ function Schedule({ journeys }) {
 
   return (
     <>
+      <Button onClick={toggleWeek} variant="primary">
+        Switch to Term {(term1Active === true) ? "2" : "1"}
+      </Button>
       <div className="timeTable">
-        {t1Week.map((day) => (
-          <div className="day">
-            {day.map((j) => (
-              <div className="journeyCard">
-                {j.class1} to {j.class2}
-                <br />
-                {j.buil1} to {j.buil2}
-                <br />
-                {j.day}
-                <br />
-                Term: {j.term}
-                <br />
-                Walk Time: {j.time}
-                <br />
-                <br />
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-      <div className="timeTable">
-        {t2Week.map((day) => (
+        {((term1Active === true) ? t1Week : t2Week).map((day) => (
           <div className="day">
             {day.map((j) => (
               <div className="journeyCard">
@@ -140,13 +132,15 @@ function Schedule({ journeys }) {
   );
 }
 
-function Information() {
-  return (
-    <div className='information'>
-      <h2>Find your Timetable on the SSC, then click 'Download your schedule' and upload it here.</h2>
-      <p>Our app makes sure that don't have to sprint between your UBC classes.</p>
-    </div>
-  );
+function Information({ foundResponse }) {
+  if (!foundResponse) {
+    return (
+      <div className='information'>
+        <h2>Find your Timetable on the SSC, then click 'Download your schedule' and upload it here.</h2>
+        <p>Our app makes sure that don't have to sprint between your UBC classes.</p>
+      </div>
+    );
+  }
 }
 
 export default App;
