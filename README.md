@@ -6,8 +6,10 @@ The website allows you to upload an .ics file containing your schedule (download
 
 ##### Landing page for the app. Here you can upload your UBC timetable (.ics) for processing!
 <img src="/src/assets/images/Landing Page.png" width="600"/>
+
 ##### View for classes in Term 1. Button to switch to Term 2.
 <img src="/src/assets/images/Term 1.png" width="600">
+
 ##### View for classes in Term 2.
 <img src="/src/assets/images/Term 2.png" width="600">
 
