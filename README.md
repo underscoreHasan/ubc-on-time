@@ -4,12 +4,12 @@ Aims to get you to class on time!
 
 The website allows you to upload an .ics file containing your schedule (downloaded from the UBC SSC). The backend then breaks down the data to extract the buildings that your classes are in, put them through the Google Maps API, and tell you how long it'll take to walk between your classes.
 
-<img src="/src/assets/images/Landing Page.png" width="600"/>
 ##### Landing page for the app. Here you can upload your UBC timetable (.ics) for processing!
-<img src="/src/assets/images/Term 1.png" width="600">
+<img src="/src/assets/images/Landing Page.png" width="600"/>
 ##### View for classes in Term 1. Button to switch to Term 2.
-<img src="/src/assets/images/Term 2.png" width="600">
+<img src="/src/assets/images/Term 1.png" width="600">
 ##### View for classes in Term 2.
+<img src="/src/assets/images/Term 2.png" width="600">
 
 # The Future 🔭🚢
 For future functionality, we hope to build an interface to allow you to input 2 of your planned classes at a time, to help you when building a worklist. We also wish to include accessiblilty friendly options which calculate and show wheelchair accessible routes between classes.
