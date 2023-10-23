@@ -14,10 +14,12 @@ The website allows you to upload an .ics file containing your schedule (download
 <img src="/src/assets/images/Term 2.png" width="600">
 
 # The Future 🔭🚢
-For future functionality, we hope to build an interface to allow you to input 2 of your planned classes at a time, to help you when building a worklist. We also wish to include accessiblilty friendly options which calculate and show wheelchair accessible routes between classes.
+For future functionality, we hope to:
+- Build an interface to allow you to select 2 potential classes at a time, for walk time information without a .ics file.
+- Accessiblilty friendly options which calculate and show wheelchair accessible routes between classes.
 
 # Why was this built? 🏗️
-During nwHacks 2023, this project was done with HTML/CSS/JavaScript, Node and Express. The project ended up being somewhat unrefined, but served as an excellent learning experience.
+During nwHacks 2023, this project was done with HTML/CSS/JavaScript, Node and Express. The project ended up being somewhat unrefined, but served as an excellent learning experience for everyone in the team.
 
 During the summer of 2023, I (underscoreHasan) continued further work on the project as a means to learn React and server technologies. So far, I have managed to rebuild the project to be more intuitive and useable with React, Node and Express (express-generator).
 
